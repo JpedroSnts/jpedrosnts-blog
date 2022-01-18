@@ -19,9 +19,15 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
     a {
       text-decoration: none;
     }
+    h1{
+      font-size: 35px;
+    }
     h1,h2,h3,h4,h5,h6{
       color: ${(props) =>
         props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
+    }
+    ul{
+      list-style: inside;
     }
     [aria-label] {
     position: relative;

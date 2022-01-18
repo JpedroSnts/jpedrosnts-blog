@@ -50,3 +50,31 @@ export interface DisplayData {
     text: textLang;
   };
 }
+
+export type PostDbData = {
+  id: string;
+  title_en: string;
+  content_en: string;
+  title_pt: string;
+  content_pt: string;
+  date_en: string;
+  date_pt: string;
+  slug: string;
+};
+
+export type PostData = {
+  id: string;
+  title: {
+    "en-US": string;
+    "pt-BR": string;
+  };
+  content: {
+    "en-US": string;
+    "pt-BR": string;
+  };
+  date: {
+    "en-US": string;
+    "pt-BR": string;
+  };
+  slug: string;
+};

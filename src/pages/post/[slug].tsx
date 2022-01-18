@@ -1,10 +1,52 @@
-import type { NextPage } from "next";
+import type { NextPage, GetStaticProps, GetServerSideProps } from "next";
+import { useContext } from "react";
+import { ContextApp } from "../../context";
+import { PostData } from "../../types";
+import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Head from "next/head";
 
-const Post: NextPage = () => {
-  const { query } = useRouter();
+interface PostProps {
+  post: PostData;
+}
+
+// export async function getStaticPaths() {
+//   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
+//   const slug = data.posts.map((post: any) => post.slug);
+//   return {
+//     paths: { params: slug },
+//     fallback: true,
+//   };
+// }
+
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const { data } = await axios.get(
+//     `${process.env.NEXT_PUBLIC_HOST}/api/posts/${
+//       context.params && context.params.slug
+//     }`,
+//   );
+//   return {
+//     props: {
+//       post: "data.post",
+//     },
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_HOST}/api/posts/${
+      context.params && context.params.slug
+    }`,
+  );
+  return {
+    props: {
+      post: data.post,
+    },
+  };
+};
+
+const Post: NextPage<PostProps> = ({ post }) => {
+  const { lang } = useContext(ContextApp);
   return (
     <div>
       <Head>
@@ -15,7 +57,11 @@ const Post: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>{query.slug}</h1>
+      <section>
+        <h1>{post.title[lang]}</h1>
+        <p>{post.content[lang]}</p>
+      </section>
+      <br />
       <Link href="/">
         <a>
           <h3>← Back to home</h3>

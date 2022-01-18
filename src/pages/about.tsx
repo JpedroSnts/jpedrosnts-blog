@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage, GetStaticProps } from "next";
 import { useContext } from "react";
 import { ContextApp } from "../context";
 import { AboutDataProps, DisplayData } from "../types";
@@ -7,7 +7,7 @@ import Head from "next/head";
 import Icon from "../components/Icon";
 import * as S from "../styles";
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const { data }: { data: DisplayData } = await axios.get(
     `${process.env.NEXT_PUBLIC_HOST}/api/display`,
   );
@@ -16,7 +16,7 @@ export async function getStaticProps() {
       about: data.about,
     },
   };
-}
+};
 
 interface AboutProps {
   about: AboutDataProps;

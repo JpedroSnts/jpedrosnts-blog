@@ -1,15 +1,23 @@
 import CardPost from "../components/CardPost";
-import type { NextPage } from "next";
+import axios from "axios";
+import type { NextPage, GetServerSideProps } from "next";
+import { PostData } from "../types";
 import Head from "next/head";
 
-const post = {
-  title: "Lorem Ipsum",
-  data: "18/01/2022 - 17:10",
-  slug: "lorem-ipsum",
-  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius leo ac erat rutrum varius. Curabitur et magna vel felis commodo ornare viverra et felis. Ut a lacus massa. Vivamus sed molestie metus. Praesent vitae erat eu augue porta vestibulum ac ac augue. Vestibulum fermentum porttitor sollicitudin. Proin a dictum ligula.",
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
+  return {
+    props: {
+      posts: data.posts,
+    },
+  };
 };
 
-const Home: NextPage = () => {
+interface HomeProps {
+  posts: PostData[];
+}
+
+const Home: NextPage<HomeProps> = ({ posts }) => {
   return (
     <>
       <Head>
@@ -21,11 +29,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
-        <CardPost post={post} />
-        <CardPost post={post} />
-        <CardPost post={post} />
-        <CardPost post={post} />
-        <CardPost post={post} />
+        {posts.map((post) => (
+          <CardPost post={post} key={post.id} />
+        ))}
       </section>
     </>
   );
