@@ -1,0 +1,12 @@
+{
+  "navbar": {
+    "pt-BR": {
+      "items": ["Home", "Sobre"],
+      "links": ["/", "/about"]
+    },
+    "en-US": {
+      "items": ["Home", "About"],
+      "links": ["/", "/about"]
+    }
+  }
+}

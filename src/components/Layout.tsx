@@ -1,34 +1,27 @@
-import { useContext, useEffect } from "react";
+import Head from "next/head";
+import { useContext } from "react";
 import { ContextApp } from "../context";
+import Navbar from "./Navbar";
 import * as S from "../styles";
 
-interface LayoutProps {
-  children: JSX.Element;
-}
-
-export default function Layout({ children }: LayoutProps) {
-  const { theme, setTheme, lang, setLang } = useContext(ContextApp);
-
-  function changeTheme() {
-    theme === "dark" ? setTheme("light") : setTheme("dark");
-  }
-
-  function changeLang() {
-    lang === "pt-BR" ? setLang("en-US") : setLang("pt-BR");
-  }
-
+export default function Layout({ children }: { children: JSX.Element }) {
+  const { theme } = useContext(ContextApp);
   return (
-    <S.Container>
-      {children}
-      <div>
-        <h1>{theme}</h1>
-        <button onClick={changeTheme}>Change Theme</button>
-      </div>
-      <div>
-        <h1>{lang}</h1>
-        <button onClick={changeLang}>Change Lang</button>
-      </div>
-      <S.GlobalStyles colorTheme={theme} />
-    </S.Container>
+    <>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+      </Head>
+      <Navbar />
+      <S.Container>
+        {children}
+        <S.GlobalStyles colorTheme={theme} />
+      </S.Container>
+    </>
   );
 }

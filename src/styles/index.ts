@@ -1,10 +1,16 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-interface GlobalStylesProps {
+interface themeProp {
   colorTheme: string;
 }
 
-export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
+export const GlobalStyles = createGlobalStyle<themeProp>`
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto Slab', serif;
+    }
     body{
         background-color: ${(props) =>
           props.colorTheme === "dark" ? "#282A36" : "#fff"};
@@ -16,4 +22,77 @@ export const GlobalStyles = createGlobalStyle<GlobalStylesProps>`
     }
 `;
 
-export const Container = styled.main``;
+export const Container = styled.main`
+  @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap");
+  width: min(600px, 100%);
+  padding: 20px;
+  margin: auto;
+`;
+
+export const Header = styled.header`
+  width: 100%;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+`;
+
+export const Nav = styled.nav`
+  width: min(600px, 100%);
+  height: 60px;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ul {
+    display: flex;
+    list-style: none;
+    font-size: 18px;
+  }
+
+  section {
+    display: flex;
+  }
+`;
+
+interface LiNavProps {
+  active: boolean;
+  colorTheme: string;
+}
+
+function colorActive(props: LiNavProps): string {
+  if (props.active) {
+    return props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB";
+  } else {
+    return props.colorTheme === "dark" ? "#fff" : "#2C2C2C";
+  }
+}
+
+export const LiNav = styled.li<LiNavProps>`
+  a {
+    text-decoration: none;
+    color: ${(props) => colorActive(props)};
+    margin-right: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover {
+      color: ${(props) =>
+        props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
+    }
+  }
+`;
+
+export const SwitchTheme = styled.button<themeProp>`
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  margin-left: 10px;
+  color: ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+  border-radius: 20px;
+  border: solid 2px
+    ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
