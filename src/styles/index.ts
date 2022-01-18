@@ -179,3 +179,8 @@ export const Icons = styled.section`
   flex-wrap: wrap;
   margin-bottom: 35px;
 `;
+
+export const Title = styled.h1`
+  font-size: 45px;
+  text-align: center;
+`;

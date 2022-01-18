@@ -11,7 +11,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
-  const { data: posts, error } = await supabase.from("post").select("*");
+  const { data: posts, error } = await supabase
+    .from("post")
+    .select("*")
+    .order("id", { ascending: false });
   const Posts = posts?.map((post) => {
     return {
       id: post.id,

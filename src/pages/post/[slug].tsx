@@ -1,43 +1,24 @@
-import type { NextPage, GetStaticProps, GetServerSideProps } from "next";
+import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { useContext } from "react";
 import { ContextApp } from "../../context";
 import { PostData } from "../../types";
-import axios from "axios";
 import Link from "next/link";
 import Head from "next/head";
+import * as S from "../../styles";
 
-interface PostProps {
-  post: PostData;
-}
+export const getStaticPaths: GetStaticPaths = async () => {
+  const postsFetch = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
+  const data = await postsFetch.json();
+  const paths = data.posts.map((post: PostData) => ({
+    params: { slug: post.slug },
+  }));
+  return { paths, fallback: true };
+};
 
-// export async function getStaticPaths() {
-//   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
-//   const slug = data.posts.map((post: any) => post.slug);
-//   return {
-//     paths: { params: slug },
-//     fallback: true,
-//   };
-// }
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const { data } = await axios.get(
-//     `${process.env.NEXT_PUBLIC_HOST}/api/posts/${
-//       context.params && context.params.slug
-//     }`,
-//   );
-//   return {
-//     props: {
-//       post: "data.post",
-//     },
-//   };
-// };
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_HOST}/api/posts/${
-      context.params && context.params.slug
-    }`,
-  );
+export const getStaticProps: GetStaticProps = async (context) => {
+  const slug = context.params && context.params.slug;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/posts/${slug}`);
+  const data = await res.json();
   return {
     props: {
       post: data.post,
@@ -45,10 +26,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
+interface PostProps {
+  post: PostData;
+}
+
 const Post: NextPage<PostProps> = ({ post }) => {
   const { lang } = useContext(ContextApp);
   return (
-    <div>
+    <>
       <Head>
         <title>Post - JpedroSnts</title>
         <meta
@@ -58,8 +43,8 @@ const Post: NextPage<PostProps> = ({ post }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
-        <h1>{post.title[lang]}</h1>
-        <p>{post.content[lang]}</p>
+        <S.Title>{post.title[lang]}</S.Title>
+        <div dangerouslySetInnerHTML={{ __html: post.content[lang] }} />
       </section>
       <br />
       <Link href="/">
@@ -67,7 +52,7 @@ const Post: NextPage<PostProps> = ({ post }) => {
           <h3>← Back to home</h3>
         </a>
       </Link>
-    </div>
+    </>
   );
 };
 

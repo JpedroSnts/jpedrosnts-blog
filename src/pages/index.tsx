@@ -1,11 +1,11 @@
 import CardPost from "../components/CardPost";
-import axios from "axios";
 import type { NextPage, GetServerSideProps } from "next";
 import { PostData } from "../types";
 import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
+  const data = await res.json();
   return {
     props: {
       posts: data.posts,
