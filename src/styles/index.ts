@@ -20,6 +20,32 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
       color: ${(props) =>
         props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
     }
+    [aria-label] {
+    position: relative;
+      &::after {
+        content: attr(aria-label);
+        display: none;
+        position: absolute;
+        top: 110%;
+        left: 0px;
+        z-index: 5000;
+        pointer-events: none;
+        padding: 2px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: .9em;
+        color: ${(props) =>
+          props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
+          border: solid 2px ${(props) =>
+            props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      &:hover::after {
+        display: block;
+      }
+    }
 `;
 
 export const Container = styled.main`
@@ -95,4 +121,52 @@ export const SwitchTheme = styled.button<themeProp>`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+`;
+export const CardPost = styled.section`
+  margin-bottom: 20px;
+  h1 {
+    font-size: 30px;
+  }
+  small {
+    font-weight: 700;
+  }
+  p {
+    font-weight: 400;
+  }
+`;
+
+export const Image = styled.img<themeProp>`
+  width: 200px;
+  border-radius: 100px;
+  display: block;
+  margin: auto;
+  border: solid 4px
+    ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+`;
+
+export const TitleName = styled.h1<themeProp>`
+  text-align: center;
+  font-size: 40px;
+  padding-bottom: 10px;
+  border-bottom: solid 4px
+    ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")}; ;
+`;
+
+export const Icon = styled.article<themeProp>`
+  width: 50px;
+  height: 50px;
+  background-color: ${(props) =>
+    props.colorTheme === "dark" ? "#725E97" : "#C5A2F7"};
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Icons = styled.section`
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 35px;
 `;
