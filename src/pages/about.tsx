@@ -1,12 +1,28 @@
 import type { NextPage } from "next";
 import { useContext } from "react";
 import { ContextApp } from "../context";
+import { DisplayData } from "../types";
+import axios from "axios";
 import Head from "next/head";
-import display from "../data/display.json";
 import Icon from "../components/Icon";
 import * as S from "../styles";
 
-const About: NextPage = () => {
+export async function getStaticProps() {
+  const { data }: { data: DisplayData } = await axios.get(
+    `${process.env.NEXT_PUBLIC_HOST}/api/display`,
+  );
+  return {
+    props: {
+      display: data,
+    },
+  };
+}
+
+interface AboutProps {
+  display: DisplayData;
+}
+
+const About: NextPage<AboutProps> = ({ display }) => {
   const { theme, lang } = useContext(ContextApp);
   return (
     <>
