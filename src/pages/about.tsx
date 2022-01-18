@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useContext } from "react";
 import { ContextApp } from "../context";
-import { DisplayData } from "../types";
+import { AboutDataProps, DisplayData } from "../types";
 import axios from "axios";
 import Head from "next/head";
 import Icon from "../components/Icon";
@@ -13,33 +13,33 @@ export async function getStaticProps() {
   );
   return {
     props: {
-      display: data,
+      about: data.about,
     },
   };
 }
 
 interface AboutProps {
-  display: DisplayData;
+  about: AboutDataProps;
 }
 
-const About: NextPage<AboutProps> = ({ display }) => {
+const About: NextPage<AboutProps> = ({ about }) => {
   const { theme, lang } = useContext(ContextApp);
   return (
     <>
       <Head>
-        <title>{display.about.title[lang]}</title>
-        <meta name="description" content={display.about.description[lang]} />
+        <title>{about.title[lang]}</title>
+        <meta name="description" content={about.description[lang]} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
         <S.Image
-          src={display.about.image.src}
-          alt={display.about.image.alt[lang]}
+          src={about.image.src}
+          alt={about.image.alt[lang]}
           colorTheme={theme}
         />
-        <S.TitleName colorTheme={theme}>{display.about.name}</S.TitleName>
+        <S.TitleName colorTheme={theme}>{about.name}</S.TitleName>
         <S.Icons>
-          {display.about.icons.map((icon, i) => (
+          {about.icons.map((icon, i) => (
             <Icon
               key={i}
               src={icon.src}
@@ -51,7 +51,7 @@ const About: NextPage<AboutProps> = ({ display }) => {
         </S.Icons>
       </section>
       <section>
-        <p>{display.about.text[lang]}</p>
+        <p>{about.text[lang]}</p>
       </section>
     </>
   );

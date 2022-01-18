@@ -6,16 +6,6 @@ export default function handler(
   res: NextApiResponse<DisplayData>,
 ) {
   res.status(200).json({
-    navbar: {
-      "pt-BR": {
-        items: ["Home", "Sobre"],
-        links: ["/", "/about"],
-      },
-      "en-US": {
-        items: ["Home", "About"],
-        links: ["/", "/about"],
-      },
-    },
     about: {
       title: {
         "pt-BR": "Sobre - JpedroSnts",

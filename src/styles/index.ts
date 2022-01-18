@@ -16,6 +16,9 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
           props.colorTheme === "dark" ? "#282A36" : "#fff"};
         color: ${(props) => (props.colorTheme === "dark" ? "#fff" : "#2C2C2C")};
     }
+    a {
+      text-decoration: none;
+    }
     h1,h2,h3,h4,h5,h6{
       color: ${(props) =>
         props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
@@ -122,7 +125,7 @@ export const SwitchTheme = styled.button<themeProp>`
   justify-content: center;
   cursor: pointer;
 `;
-export const CardPost = styled.section`
+export const CardPost = styled.article`
   margin-bottom: 20px;
   h1 {
     font-size: 30px;

@@ -1,9 +1,20 @@
 import Link from "next/link";
+import { NavbarProps } from "../types";
 import { useContext } from "react";
 import { ContextApp } from "../context";
 import { useRouter } from "next/router";
-import display from "../data/display.json";
 import * as S from "../styles/index";
+
+const navbar: NavbarProps = {
+  "pt-BR": {
+    items: ["Home", "Sobre"],
+    links: ["/", "/about"],
+  },
+  "en-US": {
+    items: ["Home", "About"],
+    links: ["/", "/about"],
+  },
+};
 
 export default function Navbar() {
   const { asPath } = useRouter();
@@ -19,13 +30,13 @@ export default function Navbar() {
       <S.Nav>
         <section>
           <ul>
-            {display.navbar[lang].items.map((item, i) => (
+            {navbar[lang].items.map((item, i) => (
               <S.LiNav
                 colorTheme={theme}
-                active={asPath === display.navbar[lang].links[i]}
+                active={asPath === navbar[lang].links[i]}
                 key={i}
               >
-                <Link href={display.navbar[lang].links[i]}>
+                <Link href={navbar[lang].links[i]}>
                   <a>{item}</a>
                 </Link>
               </S.LiNav>

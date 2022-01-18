@@ -1,11 +1,25 @@
+import Link from "next/link";
 import * as S from "../styles";
 
-export default function CardPost() {
+interface CardPostProps {
+  post: {
+    title: string;
+    data: string;
+    text: string;
+    slug: string;
+  };
+}
+
+export default function CardPost({ post }: CardPostProps) {
   return (
     <S.CardPost>
-      <h1>Title</h1>
-      <small>1/18/2022</small>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <Link href={`/post/${post.slug}`}>
+        <a>
+          <h1>{post.title}</h1>
+        </a>
+      </Link>
+      <small>{post.data}</small>
+      <p>{post.text.substring(0, 40) + "..."}</p>
     </S.CardPost>
   );
 }
