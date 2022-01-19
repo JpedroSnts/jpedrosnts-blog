@@ -1,29 +1,31 @@
 import { supabase } from "./supabase";
-import { PostDbData, PostData } from "../types";
+import { PostData } from "../types";
 
 export async function getAllPosts() {
   const { data: posts, error } = await supabase
     .from("post")
     .select("*")
     .order("id", { ascending: false });
-  const Posts: PostData[] | undefined = posts?.map((post) => {
-    return {
-      id: post.id,
-      title: {
-        "en-US": post.title_en,
-        "pt-BR": post.title_pt,
-      },
-      content: {
-        "en-US": post.content_en,
-        "pt-BR": post.content_pt,
-      },
-      date: {
-        "en-US": post.date_en,
-        "pt-BR": post.date_pt,
-      },
-      slug: post.slug,
-    };
-  });
+  const Posts: PostData[] = posts
+    ? posts.map((post) => {
+        return {
+          id: post.id,
+          title: {
+            "en-US": post.title_en,
+            "pt-BR": post.title_pt,
+          },
+          content: {
+            "en-US": post.content_en,
+            "pt-BR": post.content_pt,
+          },
+          date: {
+            "en-US": post.date_en,
+            "pt-BR": post.date_pt,
+          },
+          slug: post.slug,
+        };
+      })
+    : [];
   if (error) {
     return { error: error.message };
   } else {
@@ -36,27 +38,29 @@ export async function getPostBySlug(slug: string | string[] | undefined) {
     .from("post")
     .select("*")
     .eq("slug", slug);
-  if (error) return { error: error.message };
-  if (post?.length === 0) return { error: "Post not found!" };
-  if (post) {
-    const Post: PostData[] = post?.map((post) => {
-      return {
-        id: post.id,
-        title: {
-          "en-US": post.title_en,
-          "pt-BR": post.title_pt,
-        },
-        content: {
-          "en-US": post.content_en,
-          "pt-BR": post.content_pt,
-        },
-        date: {
-          "en-US": post.date_en,
-          "pt-BR": post.date_pt,
-        },
-        slug: post.slug,
-      };
-    });
+  if (error) {
+    return { error: error.message };
+  } else {
+    const Post: PostData[] = post
+      ? post.map((post) => {
+          return {
+            id: post.id,
+            title: {
+              "en-US": post.title_en,
+              "pt-BR": post.title_pt,
+            },
+            content: {
+              "en-US": post.content_en,
+              "pt-BR": post.content_pt,
+            },
+            date: {
+              "en-US": post.date_en,
+              "pt-BR": post.date_pt,
+            },
+            slug: post.slug,
+          };
+        })
+      : [];
     return { post: Post[0] };
   }
 }
