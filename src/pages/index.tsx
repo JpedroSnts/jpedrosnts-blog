@@ -1,8 +1,10 @@
-import CardPost from "../components/CardPost";
 import type { NextPage, GetServerSideProps } from "next";
 import { PostData } from "../types";
 import { getAllPosts } from "../service/blog";
+import { useRouter } from "next/router";
+import CardPost from "../components/CardPost";
 import Head from "next/head";
+import Loader from "../components/Loader";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { posts } = await getAllPosts();
@@ -14,6 +16,7 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ posts }) => {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -23,11 +26,15 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
           content="Leia as últimas postagens de JpedroSnts"
         />
       </Head>
-      <section>
-        {posts.map((post) => (
-          <CardPost post={post} key={post.id} />
-        ))}
-      </section>
+      {router.isFallback ? (
+        <Loader />
+      ) : (
+        <section>
+          {posts.map((post) => (
+            <CardPost post={post} key={post.id} />
+          ))}
+        </section>
+      )}
     </>
   );
 };
