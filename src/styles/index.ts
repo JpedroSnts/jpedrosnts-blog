@@ -238,6 +238,6 @@ export const Icons = styled.section`
 `;
 
 export const Title = styled.h1`
-  font-size: 45px;
+  font-size: 30px;
   text-align: center;
 `;

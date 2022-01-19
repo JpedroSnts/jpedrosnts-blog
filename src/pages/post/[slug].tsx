@@ -35,11 +35,8 @@ const Post: NextPage<PostProps> = ({ post }) => {
   return (
     <>
       <Head>
-        <title>Post - JpedroSnts</title>
-        <meta
-          name="description"
-          content="Leia as últimas postagens de JpedroSnts"
-        />
+        <title>{`${post.title[lang]} - JpedroSnts`}</title>
+        <meta name="description" content={post.title[lang]} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
@@ -49,7 +46,7 @@ const Post: NextPage<PostProps> = ({ post }) => {
       <br />
       <Link href="/">
         <a>
-          <h3>← Back to home</h3>
+          <h3>{lang === "en-US" ? "← Back to home" : "← Voltar ao início"}</h3>
         </a>
       </Link>
     </>
