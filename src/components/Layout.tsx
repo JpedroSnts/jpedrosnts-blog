@@ -17,7 +17,8 @@ export default function Layout({ children }: { children: JSX.Element }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/ico" href="/favicon.ico" />
+        <link rel="apple-touch-icon" type="image/ico" href="/favicon.ico" />
       </Head>
       <Navbar />
       <S.Container>
