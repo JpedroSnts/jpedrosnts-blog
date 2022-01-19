@@ -277,3 +277,15 @@ export const FooterIcon = styled.a<themeProp>`
 export const FooterGhost = styled.div`
   height: 60px;
 `;
+
+export const Error = styled.section<themeProp>`
+  text-align: center;
+
+  .headerError {
+    border-bottom: solid 2px
+      ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+  }
+  i {
+    font-size: 50px;
+  }
+`;
