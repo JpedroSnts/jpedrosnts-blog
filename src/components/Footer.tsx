@@ -26,7 +26,9 @@ export default function Footer() {
                 colorTheme={theme}
                 href={icon.link}
                 key={i}
+                rel="noreferrer"
                 target="_blank"
+                aria-label={`link ${icon.name}`}
               >
                 <i className={`fab fa-${icon.name}`}></i>
               </S.FooterIcon>
