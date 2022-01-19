@@ -23,7 +23,6 @@ const About: NextPage<AboutProps> = ({ about }) => {
       <Head>
         <title>{about.title[lang]}</title>
         <meta name="description" content={about.description[lang]} />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
         <S.Image

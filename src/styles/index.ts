@@ -11,7 +11,13 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
       box-sizing: border-box;
       font-family: 'Roboto Slab', serif;
     }
+    html, #__next{
+      height: 100%;
+    }
     body{
+      min-height:100%;
+      position:relative;
+        margin-bottom:50px;
         background-color: ${(props) =>
           props.colorTheme === "dark" ? "#282A36" : "#fff"};
         color: ${(props) => (props.colorTheme === "dark" ? "#fff" : "#2C2C2C")};
@@ -60,6 +66,7 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
 export const Container = styled.main`
   @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap");
   width: min(600px, 100%);
+  min-height: 100%;
   padding: 20px;
   margin: auto;
 `;
@@ -240,4 +247,33 @@ export const Icons = styled.section`
 export const Title = styled.h1`
   font-size: 30px;
   text-align: center;
+`;
+
+export const Footer = styled.footer<themeProp>`
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  position: absolute;
+  bottom: 0px;
+  border-top: solid 1px
+    ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+  article {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: min(600px, 100%);
+    margin: auto;
+    height: 100%;
+  }
+`;
+
+export const FooterIcon = styled.a<themeProp>`
+  font-size: 35px;
+  margin-left: 20px;
+  text-decoration: none;
+  color: ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+`;
+
+export const FooterGhost = styled.div`
+  height: 60px;
 `;

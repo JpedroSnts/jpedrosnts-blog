@@ -26,7 +26,6 @@ const Home: NextPage<HomeProps> = ({ posts }) => {
           name="description"
           content="Leia as últimas postagens de JpedroSnts"
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
         {posts.map((post) => (

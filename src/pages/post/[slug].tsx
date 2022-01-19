@@ -37,7 +37,6 @@ const Post: NextPage<PostProps> = ({ post }) => {
       <Head>
         <title>{`${post.title[lang]} - JpedroSnts`}</title>
         <meta name="description" content={post.title[lang]} />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <section>
         <S.Title>{post.title[lang]}</S.Title>
