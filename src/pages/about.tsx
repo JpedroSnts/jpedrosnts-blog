@@ -7,7 +7,7 @@ import Icon from "../components/Icon";
 import * as S from "../styles";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/display`);
+  const res = await fetch(`${process.env.HOST}/api/display`);
   const data = await res.json();
   return { props: { about: data.about } };
 };

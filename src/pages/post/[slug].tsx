@@ -7,7 +7,7 @@ import Head from "next/head";
 import * as S from "../../styles";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const postsFetch = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
+  const postsFetch = await fetch(`${process.env.HOST}/api/posts`);
   const data = await postsFetch.json();
   const paths = data.posts.map((post: PostData) => ({
     params: { slug: post.slug },
@@ -17,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params && context.params.slug;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/posts/${slug}`);
+  const res = await fetch(`${process.env.HOST}/api/posts/${slug}`);
   const data = await res.json();
   return {
     props: {

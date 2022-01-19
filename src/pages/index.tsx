@@ -4,7 +4,7 @@ import { PostData } from "../types";
 import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/posts`);
+  const res = await fetch(`${process.env.HOST}/api/posts`);
   const data = await res.json();
   return {
     props: {
