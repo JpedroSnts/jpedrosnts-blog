@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Roboto Slab', serif;
+      font-family: 'Roboto Slab', Georgia, serif;
     }
     html, #__next{
       height: 100%;
