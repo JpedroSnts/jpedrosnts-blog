@@ -5,6 +5,13 @@ interface themeProp {
 }
 
 export const GlobalStyles = createGlobalStyle<themeProp>`
+    @font-face {
+      font-family:"Roboto Slab";
+      src: url("../fonts/RobotoSlab-Bold.ttf") format("truetype");
+      src: url("../fonts/RobotoSlab-Light.ttf") format("truetype");
+      src: url("../fonts/RobotoSlab-Regular.ttf") format("truetype");
+      src: url("../fonts/RobotoSlab-Thin.ttf") format("truetype");
+    }
     *{
       margin: 0;
       padding: 0;
@@ -64,7 +71,6 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
 `;
 
 export const Container = styled.main`
-  @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap");
   width: min(600px, 100%);
   min-height: 100%;
   padding: 20px;
