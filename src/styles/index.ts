@@ -289,3 +289,93 @@ export const Error = styled.section<themeProp>`
     font-size: 50px;
   }
 `;
+
+export const Loader = styled.section<themeProp>`
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50px;
+  width: 50px;
+  margin: -25px 0 0 -25px;
+
+  span {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: ${(props) =>
+      props.colorTheme === "dark" ? "#ffffff40" : "rgba(0, 0, 0, 0.25)"};
+    border-radius: 50%;
+    -webkit-animation: dots1 1s infinite ease-in-out;
+    animation: dots1 1s infinite ease-in-out;
+  }
+
+  span:nth-child(1) {
+    left: 0px;
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+  }
+
+  span:nth-child(2) {
+    left: 15px;
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+  }
+
+  span:nth-child(3) {
+    left: 30px;
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }
+
+  span:nth-child(4) {
+    left: 45px;
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes dots1 {
+    0% {
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+      background: ${(props) =>
+        props.colorTheme === "dark" ? "#ffffff40" : "rgba(0, 0, 0, 0.25)"};
+    }
+    50% {
+      -webkit-transform: translateY(10px);
+      transform: translateY(10px);
+      -webkit-transform: translateY(10px);
+      transform: translateY(10px);
+      background: ${(props) => (props.colorTheme === "dark" ? "#fff" : "#000")};
+    }
+    100% {
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+      background: ${(props) =>
+        props.colorTheme === "dark" ? "#ffffff40" : "rgba(0, 0, 0, 0.25)"};
+    }
+  }
+  @-webkit-keyframes dots1 {
+    0% {
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+      background: ${(props) =>
+        props.colorTheme === "dark" ? "#ffffff40" : "rgba(0, 0, 0, 0.25)"};
+    }
+    50% {
+      -webkit-transform: translateY(10px);
+      transform: translateY(10px);
+      background: ${(props) => (props.colorTheme === "dark" ? "#fff" : "#000")};
+    }
+    100% {
+      -webkit-transform: translateY(0px);
+      transform: translateY(0px);
+      background: ${(props) =>
+        props.colorTheme === "dark" ? "#ffffff40" : "rgba(0, 0, 0, 0.25)"};
+    }
+  }
+`;

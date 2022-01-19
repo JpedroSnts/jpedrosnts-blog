@@ -1,45 +1,50 @@
-import type {
-  NextPage,
-  GetStaticProps,
-  GetStaticPaths,
-  GetServerSideProps,
-} from "next";
+import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 import { ContextApp } from "../../context";
 import { PostData } from "../../types";
 import { getPostBySlug, getAllPosts } from "../../service/blog";
 import Link from "next/link";
 import Head from "next/head";
+import Loader from "../../components/Loader";
 import * as S from "../../styles";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { posts } = await getAllPosts();
-  const paths = posts
-    ? posts.map((post: PostData) => ({
+  const paths =
+    posts?.map((post) => {
+      return {
         params: { slug: post.slug },
-      }))
-    : [];
+      };
+    }) ?? [];
   return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params && context.params.slug;
-  const { post } = await getPostBySlug(slug);
+  const { post } = await getPostBySlug(
+    context.params ? context.params.slug : "",
+  );
   return { props: { post } };
 };
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const slug = context.params && context.params.slug;
-//   const { post } = await getPostBySlug(slug);
-//   return { props: { post } };
-// };
 
 interface PostProps {
   post: PostData;
 }
 
 const Post: NextPage<PostProps> = ({ post }) => {
+  const router = useRouter();
   const { lang } = useContext(ContextApp);
+
+  if (router.isFallback) {
+    return (
+      <>
+        <Head>
+          <title>{`Loading...`}</title>
+        </Head>
+        <Loader />
+      </>
+    );
+  }
   return (
     <>
       <Head>
