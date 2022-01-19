@@ -29,32 +29,32 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
     ul{
       list-style: inside;
     }
-    [aria-label] {
+    article[aria-label] {
     position: relative;
-      &::after {
-        content: attr(aria-label);
-        display: none;
-        position: absolute;
-        top: 110%;
-        left: 0px;
-        z-index: 5000;
-        pointer-events: none;
-        padding: 2px 10px;
-        border-radius: 5px;
-        text-decoration: none;
-        font-size: .9em;
-        color: ${(props) =>
-          props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
-          border: solid 2px ${(props) =>
-            props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
-        font-weight: 600;
-        font-size: 16px;
-      }
-
-      &:hover::after {
-        display: block;
-      }
+    &::after {
+      content: attr(aria-label);
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0px;
+      z-index: 5000;
+      pointer-events: none;
+      padding: 2px 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.9em;
+      color: ${(props) =>
+        props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
+      border: solid 2px
+        ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+      font-weight: 600;
+      font-size: 16px;
     }
+
+    &:hover::after {
+      display: block;
+    }
+  }
 `;
 
 export const Container = styled.main`
@@ -116,28 +116,85 @@ export const LiNav = styled.li<LiNavProps>`
   }
 `;
 
-export const SwitchTheme = styled.button<themeProp>`
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  margin-left: 10px;
-  color: ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
-  border-radius: 20px;
+export const CbTheme = styled.span<themeProp>`
+  align-self: center;
+  margin-left: 20px;
   border: solid 2px
     ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 50px;
+  width: 57px;
+  .checkbox {
+    display: none;
+  }
+  .label {
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+    height: 20px;
+    transform: scale(1.5);
+  }
+
+  .label .ball {
+    background-color: ${(props) =>
+      props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    height: 14px;
+    width: 14px;
+    transform: translateX(0px);
+    transition: transform 0.2s linear;
+  }
+
+  .checkbox:checked + .label .ball {
+    transform: translateX(17px);
+  }
+
+  .fa-moon {
+    color: ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+    font-size: 10px;
+  }
+
+  .fa-sun {
+    color: ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+    font-size: 10px;
+  }
 `;
+
+export const SwitchLang = styled.select<themeProp>`
+  width: 55px;
+  height: 30px;
+  border-radius: 200px;
+  font-size: 17px;
+  outline: none;
+  border: solid 2px
+    ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+  color: ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
+  background-color: transparent;
+  align-self: center;
+  text-align: center;
+  cursor: pointer;
+
+  option {
+    color: #2c2c2c;
+  }
+`;
+
 export const CardPost = styled.article`
   margin-bottom: 20px;
   h1 {
     font-size: 30px;
+    display: inline;
   }
   small {
     font-weight: 700;
+    display: block;
   }
   p {
     font-weight: 400;

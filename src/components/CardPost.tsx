@@ -18,7 +18,7 @@ export default function CardPost({ post }: CardPostProps) {
         </a>
       </Link>
       <small>{post.date[lang]}</small>
-      <p>{post.content[lang].substring(0, 40) + "..."}</p>
+      {/* <p>{post.content[lang].substring(0, 40) + "..."}</p> */}
     </S.CardPost>
   );
 }

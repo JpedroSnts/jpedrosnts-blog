@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { NavbarProps } from "../types";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { ContextApp } from "../context";
 import { useRouter } from "next/router";
 import * as S from "../styles/index";
@@ -17,14 +17,26 @@ const navbar: NavbarProps = {
 };
 
 export default function Navbar() {
+  let selectElement = null;
+  let checkboxElement = null;
+  if (typeof window !== "undefined") {
+    selectElement = document.createElement("select");
+  }
+  const select = useRef<HTMLSelectElement>(selectElement);
+  const checkbox = useRef<HTMLInputElement>(checkboxElement);
   const { asPath } = useRouter();
   const { theme, setTheme, lang, setLang } = useContext(ContextApp);
-  function changeTheme() {
-    theme === "dark" ? setTheme("light") : setTheme("dark");
+  function changeTheme(e: React.ChangeEvent<HTMLInputElement>) {
+    e.target.checked ? setTheme("light") : setTheme("dark");
   }
-  function changeLang() {
-    lang === "pt-BR" ? setLang("en-US") : setLang("pt-BR");
+  function changeLang(e: React.ChangeEvent<HTMLSelectElement>) {
+    const slctLang = e.target.value;
+    if (slctLang === "pt-BR" || slctLang === "en-US") setLang(slctLang);
   }
+  useEffect(() => {
+    if (select.current) select.current.value = lang;
+    if (checkbox.current) checkbox.current.checked = theme === "light";
+  });
   return (
     <S.Header>
       <S.Nav>
@@ -44,16 +56,28 @@ export default function Navbar() {
           </ul>
         </section>
         <section>
-          <S.SwitchTheme colorTheme={theme} onClick={changeLang}>
-            {lang === "en-US" ? "en" : "pt"}
-          </S.SwitchTheme>
-          <S.SwitchTheme colorTheme={theme} onClick={changeTheme}>
-            {theme === "light" ? (
-              <i className="fas fa-sun"></i>
-            ) : (
+          <S.SwitchLang
+            colorTheme={theme}
+            ref={select}
+            onChange={(e) => changeLang(e)}
+          >
+            <option value="pt-BR">Pt</option>
+            <option value="en-US">En</option>
+          </S.SwitchLang>
+          <S.CbTheme colorTheme={theme}>
+            <input
+              type="checkbox"
+              className="checkbox"
+              ref={checkbox}
+              id="chk"
+              onChange={(e) => changeTheme(e)}
+            />
+            <label className="label" htmlFor="chk">
               <i className="fas fa-moon"></i>
-            )}
-          </S.SwitchTheme>
+              <i className="fas fa-sun"></i>
+              <div className="ball"></div>
+            </label>
+          </S.CbTheme>
         </section>
       </S.Nav>
     </S.Header>
