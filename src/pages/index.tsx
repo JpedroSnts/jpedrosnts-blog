@@ -1,16 +1,12 @@
 import CardPost from "../components/CardPost";
 import type { NextPage, GetServerSideProps } from "next";
 import { PostData } from "../types";
+import { getAllPosts } from "../service/blog";
 import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${process.env.HOST}/api/posts`);
-  const data = await res.json();
-  return {
-    props: {
-      posts: data.posts,
-    },
-  };
+  const { posts } = await getAllPosts();
+  return { props: { posts } };
 };
 
 interface HomeProps {

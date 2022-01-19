@@ -2,28 +2,26 @@ import type { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { useContext } from "react";
 import { ContextApp } from "../../context";
 import { PostData } from "../../types";
+import { getPostBySlug, getAllPosts } from "../../service/blog";
 import Link from "next/link";
 import Head from "next/head";
 import * as S from "../../styles";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const postsFetch = await fetch(`${process.env.HOST}/api/posts`);
-  const data = await postsFetch.json();
-  const paths = data.posts.map((post: PostData) => ({
-    params: { slug: post.slug },
-  }));
-  return { paths, fallback: true };
+  const { posts } = await getAllPosts();
+  if (posts) {
+    const paths = posts.map((post: PostData) => ({
+      params: { slug: post.slug },
+    }));
+    return { paths, fallback: true };
+  }
+  return { paths: [], fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params && context.params.slug;
-  const res = await fetch(`${process.env.HOST}/api/posts/${slug}`);
-  const data = await res.json();
-  return {
-    props: {
-      post: data.post,
-    },
-  };
+  const { post } = (await getPostBySlug(slug)) || {};
+  return { props: { post } };
 };
 
 interface PostProps {

@@ -1,11 +1,68 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { DisplayData } from "../../types";
+import { supabase } from "./supabase";
+import { PostDbData, PostData } from "../types";
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<DisplayData>,
-) {
-  res.status(200).json({
+export async function getAllPosts() {
+  const { data: posts, error } = await supabase
+    .from("post")
+    .select("*")
+    .order("id", { ascending: false });
+  const Posts: PostData[] | undefined = posts?.map((post) => {
+    return {
+      id: post.id,
+      title: {
+        "en-US": post.title_en,
+        "pt-BR": post.title_pt,
+      },
+      content: {
+        "en-US": post.content_en,
+        "pt-BR": post.content_pt,
+      },
+      date: {
+        "en-US": post.date_en,
+        "pt-BR": post.date_pt,
+      },
+      slug: post.slug,
+    };
+  });
+  if (error) {
+    return { error: error.message };
+  } else {
+    return { posts: Posts };
+  }
+}
+
+export async function getPostBySlug(slug: string | string[] | undefined) {
+  const { data: post, error } = await supabase
+    .from("post")
+    .select("*")
+    .eq("slug", slug);
+  if (error) return { error: error.message };
+  if (post?.length === 0) return { error: "Post not found!" };
+  if (post) {
+    const Post: PostData[] = post?.map((post) => {
+      return {
+        id: post.id,
+        title: {
+          "en-US": post.title_en,
+          "pt-BR": post.title_pt,
+        },
+        content: {
+          "en-US": post.content_en,
+          "pt-BR": post.content_pt,
+        },
+        date: {
+          "en-US": post.date_en,
+          "pt-BR": post.date_pt,
+        },
+        slug: post.slug,
+      };
+    });
+    return { post: Post[0] };
+  }
+}
+
+export function getDisplayData() {
+  return {
     about: {
       title: {
         "pt-BR": "Sobre - JpedroSnts",
@@ -80,5 +137,5 @@ export default function handler(
           "Hello my name is João Pedro de Siqueira Santos, I'm 16 years old and I'm currently studying a technician in systems development integrated to high school, when I entered this course about 1 year ago I had no idea what I was going to do, and then I fell in love with this world!",
       },
     },
-  });
+  };
 }
