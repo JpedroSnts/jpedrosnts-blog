@@ -1,15 +1,34 @@
 import { PostDbData } from "../types";
 import { allPosts, postBySlug } from "./dato-cms";
 
-export async function getAllPosts() {
-  function formatDate(data: string, lang: string) {
-    return (
-      new Date(data).toLocaleDateString(lang) +
-      " - " +
-      new Date(data).toLocaleTimeString(lang)
-    );
-  }
+function getDatePt(date: string) {
+  var dt = new Date(date);
+  const day = dt.getDate() <= 9 ? `0${dt.getDate()}` : dt.getDate();
+  const month =
+    dt.getMonth() <= 9 ? `0${dt.getMonth() + 1}` : dt.getMonth() + 1;
+  const year = dt.getFullYear();
+  const hours = dt.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+  const date_frm = `${day}/${month}/${year} - ${hours}`;
+  return date_frm;
+}
 
+function getDateEn(date: string) {
+  var dt = new Date(date);
+  const day = dt.getDate();
+  const month = dt.getMonth() + 1;
+  const year = dt.getFullYear();
+  var hours = dt.getHours();
+  var min = dt.getMinutes();
+  var ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  var minutes = min < 10 ? "0" + min : min;
+  var strTime = hours + ":" + minutes + " " + ampm;
+  const date_frm = `${month}/${day}/${year} - ${strTime}`;
+  return date_frm;
+}
+
+export async function getAllPosts() {
   const { allPosts: data } = await allPosts();
   const posts = data.map((post: PostDbData) => ({
     id: post.id,
@@ -18,8 +37,8 @@ export async function getAllPosts() {
       "pt-BR": post.title_pt,
     },
     date: {
-      "en-US": formatDate(post._createdAt, "en-US"),
-      "pt-BR": formatDate(post._createdAt, "pt-BR"),
+      "en-US": getDateEn(post._createdAt),
+      "pt-BR": getDatePt(post._createdAt),
     },
     slug: post.slug,
   }));
@@ -27,13 +46,6 @@ export async function getAllPosts() {
 }
 
 export async function getPostBySlug(slug: string | string[] | undefined) {
-  function formatDate(data: string, lang: string) {
-    return (
-      new Date(data).toLocaleDateString(lang) +
-      " - " +
-      new Date(data).toLocaleTimeString(lang)
-    );
-  }
   const { post } = await postBySlug(slug);
   const Post = {
     title: {
@@ -45,12 +57,12 @@ export async function getPostBySlug(slug: string | string[] | undefined) {
       "pt-BR": post.content_pt,
     },
     date: {
-      "en-US": formatDate(post._createdAt, "en-US"),
-      "pt-BR": formatDate(post._createdAt, "pt-BR"),
+      "en-US": getDateEn(post._createdAt),
+      "pt-BR": getDatePt(post._createdAt),
     },
     updatedAt: {
-      "en-US": formatDate(post._updatedAt, "en-US"),
-      "pt-BR": formatDate(post._updatedAt, "pt-BR"),
+      "en-US": getDateEn(post._updatedAt),
+      "pt-BR": getDatePt(post._updatedAt),
     },
   };
   return { post: Post };
