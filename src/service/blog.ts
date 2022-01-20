@@ -48,6 +48,10 @@ export async function getPostBySlug(slug: string | string[] | undefined) {
       "en-US": formatDate(post._createdAt, "en-US"),
       "pt-BR": formatDate(post._createdAt, "pt-BR"),
     },
+    updatedAt: {
+      "en-US": formatDate(post._updatedAt, "en-US"),
+      "pt-BR": formatDate(post._updatedAt, "pt-BR"),
+    },
   };
   return { post: Post };
 }

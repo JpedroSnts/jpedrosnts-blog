@@ -76,5 +76,9 @@ export type PostData = {
     "en-US": string;
     "pt-BR": string;
   };
+  updatedAt: {
+    "en-US": string;
+    "pt-BR": string;
+  };
   slug: string;
 };

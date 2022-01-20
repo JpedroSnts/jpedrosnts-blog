@@ -16,7 +16,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       params: { slug: post.slug },
     };
   });
-  return { paths, fallback: true };
+  return { paths, fallback: true, revalidate: 120 };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -33,6 +33,10 @@ interface PostProps {
 const Post: NextPage<PostProps> = ({ post }) => {
   const router = useRouter();
   const { lang } = useContext(ContextApp);
+  const updatedMessage = {
+    "pt-BR": `Atualizado em: ${post.updatedAt["pt-BR"]}`,
+    "en-US": `Updated At: ${post.updatedAt["en-US"]}`,
+  };
   if (router.isFallback) {
     return (
       <>
@@ -52,6 +56,13 @@ const Post: NextPage<PostProps> = ({ post }) => {
       <section>
         <S.Title>{post.title[lang]}</S.Title>
         <div dangerouslySetInnerHTML={{ __html: post.content[lang] }} />
+        <small>
+          {post.updatedAt[lang] !== post.date[lang] && (
+            <>
+              <br /> {updatedMessage[lang]}
+            </>
+          )}
+        </small>
       </section>
       <br />
       <Link href="/">
