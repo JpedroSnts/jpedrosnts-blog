@@ -1,7 +1,7 @@
 import CardPost from "../components/CardPost";
 import type { NextPage, GetServerSideProps } from "next";
-import { PostData } from "../types";
 import { getAllPosts } from "../service/blog";
+import { PostData } from "../types";
 import Head from "next/head";
 
 export const getServerSideProps: GetServerSideProps = async () => {
