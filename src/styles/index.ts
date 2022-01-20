@@ -24,6 +24,7 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
     }
     a {
       text-decoration: none;
+      ${(props) => (props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB")};
     }
     h1{
       font-size: 35px;
