@@ -16,14 +16,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
       params: { slug: post.slug },
     };
   });
-  return { paths, fallback: true, revalidate: 120 };
+  return { paths, fallback: true };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { post } = await getPostBySlug(
     context.params ? context.params.slug : "",
   );
-  return { props: { post } };
+  return { props: { post }, revalidate: 120 };
 };
 
 interface PostProps {
