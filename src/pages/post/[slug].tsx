@@ -12,7 +12,7 @@ import * as S from "../../styles";
 export const getStaticPaths: GetStaticPaths = async () => {
   const { posts } = await getAllPosts();
   const paths =
-    posts?.map((post) => {
+    posts?.map((post: PostData) => {
       return {
         params: { slug: post.slug },
       };
@@ -34,7 +34,6 @@ interface PostProps {
 const Post: NextPage<PostProps> = ({ post }) => {
   const router = useRouter();
   const { lang } = useContext(ContextApp);
-
   if (router.isFallback) {
     return (
       <>

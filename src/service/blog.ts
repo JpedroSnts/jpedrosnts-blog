@@ -1,67 +1,55 @@
-import { supabase } from "./supabase";
-import { PostData } from "../types";
+import { PostDbData } from "../types";
+import { allPosts, postBySlug } from "./dato-cms";
 
 export async function getAllPosts() {
-  const { data: posts, error } = await supabase
-    .from("post")
-    .select("*")
-    .order("id", { ascending: false });
-  const Posts: PostData[] =
-    posts?.map((post) => {
-      return {
-        id: post.id,
-        title: {
-          "en-US": post.title_en,
-          "pt-BR": post.title_pt,
-        },
-        content: {
-          "en-US": post.content_en,
-          "pt-BR": post.content_pt,
-        },
-        date: {
-          "en-US": post.date_en,
-          "pt-BR": post.date_pt,
-        },
-        slug: post.slug,
-      };
-    }) ?? [];
-  if (error) {
-    return { error: error.message };
-  } else {
-    return { posts: Posts };
+  function formatDate(data: string, lang: string) {
+    return (
+      new Date(data).toLocaleDateString(lang) +
+      " - " +
+      new Date(data).toLocaleTimeString(lang)
+    );
   }
+
+  const { allPosts: data } = await allPosts();
+  const posts = data.map((post: PostDbData) => ({
+    id: post.id,
+    title: {
+      "en-US": post.title_en,
+      "pt-BR": post.title_pt,
+    },
+    date: {
+      "en-US": formatDate(post._createdAt, "en-US"),
+      "pt-BR": formatDate(post._createdAt, "pt-BR"),
+    },
+    slug: post.slug,
+  }));
+  return { posts };
 }
 
 export async function getPostBySlug(slug: string | string[] | undefined) {
-  const { data: post, error } = await supabase
-    .from("post")
-    .select("*")
-    .eq("slug", slug);
-  if (error) {
-    return { error: error.message };
-  } else {
-    const Post: PostData[] =
-      post?.map((post) => {
-        return {
-          id: post.id,
-          title: {
-            "en-US": post.title_en,
-            "pt-BR": post.title_pt,
-          },
-          content: {
-            "en-US": post.content_en,
-            "pt-BR": post.content_pt,
-          },
-          date: {
-            "en-US": post.date_en,
-            "pt-BR": post.date_pt,
-          },
-          slug: post.slug,
-        };
-      }) ?? [];
-    if (Post) return { post: Post[0] };
-    return { post: {} };
+  function formatDate(data: string, lang: string) {
+    return (
+      new Date(data).toLocaleDateString(lang) +
+      " - " +
+      new Date(data).toLocaleTimeString(lang)
+    );
   }
+  const { post } = await postBySlug(slug);
+  const Post = {
+    title: {
+      "en-US": post.title_en,
+      "pt-BR": post.title_pt,
+    },
+    content: {
+      "en-US": post.content_en,
+      "pt-BR": post.content_pt,
+    },
+    date: {
+      "en-US": formatDate(post._createdAt, "en-US"),
+      "pt-BR": formatDate(post._createdAt, "pt-BR"),
+    },
+  };
+  return { post: Post };
 }
 
 export function getDisplayData() {

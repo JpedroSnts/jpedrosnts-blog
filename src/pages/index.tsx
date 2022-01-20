@@ -1,12 +1,12 @@
-import type { NextPage, GetServerSideProps } from "next";
+import type { NextPage, GetStaticProps } from "next";
 import { getAllPosts } from "../service/blog";
 import { PostData } from "../types";
 import CardPost from "../components/CardPost";
 import Head from "next/head";
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const { posts } = await getAllPosts();
-  return { props: { posts } };
+  return { props: { posts }, revalidate: 120 };
 };
 
 interface HomeProps {

@@ -57,9 +57,9 @@ export type PostDbData = {
   content_en: string;
   title_pt: string;
   content_pt: string;
-  date_en: string;
-  date_pt: string;
   slug: string;
+  _createdAt: string;
+  _updatedAt: string;
 };
 
 export type PostData = {
