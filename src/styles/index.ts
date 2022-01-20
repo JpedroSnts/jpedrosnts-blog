@@ -27,6 +27,17 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
       color: ${(props) =>
         props.colorTheme === "dark" ? "#BD93F9" : "#6D16EB"};
     }
+    pre{
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
+      font-family: 'Fira Code', monospace;
+      word-break: break-word;
+      padding: 20px;
+      background-color:  ${(props) =>
+        props.colorTheme === "dark" ? "#ffffff30" : "#00000020"};;
+    }
     h1{
       font-size: 35px;
     }
@@ -67,6 +78,7 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
 
 export const Container = styled.main`
   @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
   width: min(600px, 100%);
   min-height: 100%;
   padding: 20px;
