@@ -33,10 +33,6 @@ interface PostProps {
 const Post: NextPage<PostProps> = ({ post }) => {
   const router = useRouter();
   const { lang } = useContext(ContextApp);
-  const updatedMessage = {
-    "pt-BR": `Atualizado em: ${post.updatedAt["pt-BR"]}`,
-    "en-US": `Updated At: ${post.updatedAt["en-US"]}`,
-  };
   if (router.isFallback) {
     return (
       <>
@@ -59,7 +55,10 @@ const Post: NextPage<PostProps> = ({ post }) => {
         <small>
           {post.updatedAt[lang] !== post.date[lang] && (
             <>
-              <br /> {updatedMessage[lang]}
+              <br />
+              {lang === "pt-BR"
+                ? `Atualizado em: ${post.updatedAt["pt-BR"]}`
+                : `Updated At: ${post.updatedAt["en-US"]}`}
             </>
           )}
         </small>
