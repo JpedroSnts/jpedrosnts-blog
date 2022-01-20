@@ -33,10 +33,10 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
       white-space: -pre-wrap;
       white-space: -o-pre-wrap;
       font-family: 'Fira Code', monospace;
-      word-break: break-word;
+      font-size: 14px;
       padding: 20px;
       background-color:  ${(props) =>
-        props.colorTheme === "dark" ? "#ffffff30" : "#00000020"};;
+        props.colorTheme === "dark" ? "#ffffff30" : "#00000020"};
     }
     h1{
       font-size: 35px;
