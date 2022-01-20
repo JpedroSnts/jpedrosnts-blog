@@ -11,12 +11,12 @@ import * as S from "../../styles";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { posts } = await getAllPosts();
-  const paths =
-    posts?.map((post: PostData) => {
-      return {
-        params: { slug: post.slug },
-      };
-    }) ?? [];
+  console.log(posts);
+  const paths = posts.map((post: PostData) => {
+    return {
+      params: { slug: post.slug },
+    };
+  });
   return { paths, fallback: true };
 };
 
