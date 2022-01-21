@@ -23,7 +23,7 @@ async function fetchCmsApi(
 export async function allPosts() {
   const data = await fetchCmsApi(
     `{
-        allPosts {
+        allPosts(orderBy: createdAt_DESC){
           id
           title_pt: title(locale: pt)
           title_en: title(locale: en)

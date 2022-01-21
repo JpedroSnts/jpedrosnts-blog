@@ -5,12 +5,9 @@ function getDatePt(date: string) {
   var dt = new Date(date);
   const day = dt.getDate() <= 9 ? `0${dt.getDate()}` : dt.getDate();
   const month =
-    dt.getMonth() <= 9 ? `0${dt.getMonth() + 1}` : dt.getMonth() + 1;
+    dt.getMonth() + 1 <= 9 ? `0${dt.getMonth() + 1}` : dt.getMonth() + 1;
   const year = dt.getFullYear();
-  const hours = dt.getHours() <= 9 ? "0" + dt.getHours() : dt.getHours();
-  const minutes =
-    dt.getMinutes() <= 9 ? "0" + dt.getMinutes() : dt.getMinutes();
-  const date_frm = `${day}/${month}/${year} - ${hours}:${minutes}`;
+  const date_frm = `${day}/${month}/${year}`;
   return date_frm;
 }
 
@@ -19,14 +16,7 @@ function getDateEn(date: string) {
   const day = dt.getDate();
   const month = dt.getMonth() + 1;
   const year = dt.getFullYear();
-  var hours = dt.getHours();
-  var min = dt.getMinutes();
-  var ampm = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12;
-  hours = hours ? hours : 12;
-  var minutes = min < 10 ? "0" + min : min;
-  var strTime = hours + ":" + minutes + " " + ampm;
-  const date_frm = `${month}/${day}/${year} - ${strTime}`;
+  const date_frm = `${month}/${day}/${year}`;
   return date_frm;
 }
 
