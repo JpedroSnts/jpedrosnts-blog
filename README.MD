@@ -14,3 +14,7 @@ The JpedroSnts Blog is a personal blog developed by me so that I can post about 
 - Next.js
 - Styled-Components
 - DatoCMS
+##
+`MIT License`
+
+`Copyright (c) 2022 João Pedro de Siqueira Santos`
