@@ -62,6 +62,16 @@ export async function getPostBySlug(slug: string | string[] | undefined) {
 
 export function getDisplayData() {
   return {
+    home: {
+      title: {
+        "pt-BR": "Home - JpedroSnts",
+        "en-US": "Home - JpedroSnts",
+      },
+      description: {
+        "pt-BR": "Leia as últimas postagens de JpedroSnts",
+        "en-US": "Read the latest posts by JpedroSnts",
+      },
+    },
     about: {
       title: {
         "pt-BR": "Sobre - JpedroSnts",

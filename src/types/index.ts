@@ -1,21 +1,13 @@
 export type textLang = { "pt-BR": string; "en-US": string };
 
 export interface NavbarProps {
-  "pt-BR": {
-    items: string[];
-    links: string[];
-  };
-  "en-US": {
-    items: string[];
-    links: string[];
-  };
+  "pt-BR": string[];
+  "en-US": string[];
+  links: string[];
 }
 
 export interface AboutDataProps {
-  title: {
-    "pt-BR": string;
-    "en-US": string;
-  };
+  title: textLang;
   description: textLang;
   image: {
     src: string;
@@ -28,6 +20,11 @@ export interface AboutDataProps {
     alt: textLang;
   }>;
   text: textLang;
+}
+
+export interface HomeDataProps {
+  title: textLang;
+  description: textLang;
 }
 
 export interface DisplayData {

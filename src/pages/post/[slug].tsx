@@ -23,6 +23,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { post } = await getPostBySlug(
     context.params ? context.params.slug : "",
   );
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
   return { props: { post }, revalidate: 120 };
 };
 

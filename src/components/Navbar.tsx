@@ -6,14 +6,9 @@ import { useRouter } from "next/router";
 import * as S from "../styles/index";
 
 const navbar: NavbarProps = {
-  "pt-BR": {
-    items: ["Home", "Sobre"],
-    links: ["/", "/about"],
-  },
-  "en-US": {
-    items: ["Home", "About"],
-    links: ["/", "/about"],
-  },
+  "pt-BR": ["Home", "Sobre"],
+  "en-US": ["Home", "About"],
+  links: ["/", "/about"],
 };
 
 export default function Navbar() {
@@ -42,13 +37,13 @@ export default function Navbar() {
       <S.Nav>
         <section>
           <ul>
-            {navbar[lang].items.map((item, i) => (
+            {navbar[lang].map((item, i) => (
               <S.LiNav
                 colorTheme={theme}
-                active={asPath === navbar[lang].links[i]}
+                active={asPath === navbar.links[i]}
                 key={i}
               >
-                <Link href={navbar[lang].links[i]}>
+                <Link href={navbar.links[i]}>
                   <a>{item}</a>
                 </Link>
               </S.LiNav>
