@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { NextPageContext } from "next";
 import { useContext } from "react";
 import { ContextApp } from "../context";
@@ -22,35 +23,50 @@ const Error = ({ statusCode }: { statusCode: number }) => {
 
   if (statusCode === 404) {
     return (
-      <S.Error colorTheme={theme}>
-        <section className="headerError">
-          <h1>
-            Error 404 <i className="fas fa-exclamation-triangle"></i>
-          </h1>
-        </section>
-        <h3>{errorsData["404"][lang]}</h3>
-      </S.Error>
+      <>
+        <Head>
+          <title>Error 404!</title>
+        </Head>
+        <S.Error colorTheme={theme}>
+          <section className="headerError">
+            <h1>
+              Error 404 <i className="fas fa-exclamation-triangle"></i>
+            </h1>
+          </section>
+          <h3>{errorsData["404"][lang]}</h3>
+        </S.Error>
+      </>
     );
   }
   if (statusCode) {
-    <S.Error colorTheme={theme}>
-      <section className="headerError">
-        <h1>
-          Error {statusCode} <i className="fas fa-exclamation-triangle"></i>
-        </h1>
-      </section>
-      <h3>{errorsData.server[lang]}</h3>
-    </S.Error>;
+    <>
+      <Head>
+        <title>Error {statusCode}!</title>
+      </Head>
+      <S.Error colorTheme={theme}>
+        <section className="headerError">
+          <h1>
+            Error {statusCode} <i className="fas fa-exclamation-triangle"></i>
+          </h1>
+        </section>
+        <h3>{errorsData.server[lang]}</h3>
+      </S.Error>
+    </>;
   }
   return (
-    <S.Error colorTheme={theme}>
-      <section className="headerError">
-        <h1>
-          Error <i className="fas fa-exclamation-triangle"></i>
-        </h1>
-      </section>
-      <h3>{errorsData.client[lang]}</h3>
-    </S.Error>
+    <>
+      <Head>
+        <title>Error!</title>
+      </Head>
+      <S.Error colorTheme={theme}>
+        <section className="headerError">
+          <h1>
+            Error <i className="fas fa-exclamation-triangle"></i>
+          </h1>
+        </section>
+        <h3>{errorsData.client[lang]}</h3>
+      </S.Error>
+    </>
   );
 };
 
