@@ -18,3 +18,5 @@ The JpedroSnts Blog is a personal blog developed by me so that I can post about 
 `MIT License`
 
 `Copyright (c) 2022 João Pedro de Siqueira Santos`
+
+[<img title="Figma Design" align="center" alt="icon figma" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/figma/figma-original.svg">](https://www.figma.com/file/Zmsx8iYaAx5n6YlVMFw2Wd/JpedroBlog?node-id=0%3A1)
