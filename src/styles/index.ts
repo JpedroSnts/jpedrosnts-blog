@@ -261,6 +261,7 @@ export const Icons = styled.section`
 export const Title = styled.h1`
   font-size: 30px;
   text-align: center;
+  margin-bottom: 20px;
 `;
 
 export const Footer = styled.footer<themeProp>`

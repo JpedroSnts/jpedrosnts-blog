@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       notFound: true,
     };
   }
-  return { props: { post }, revalidate: 120 };
+  return { props: { post }, revalidate: 30 };
 };
 
 interface PostProps {

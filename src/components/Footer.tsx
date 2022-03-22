@@ -19,7 +19,7 @@ export default function Footer() {
     <>
       <S.Footer colorTheme={theme}>
         <article>
-          <section>&copy; JpedroSnts - 2022</section>
+          <section>&copy; JpedroSnts - {new Date().getFullYear()}</section>
           <section>
             {icons.map((icon, i) => (
               <S.FooterIcon
