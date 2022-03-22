@@ -54,7 +54,7 @@ const Post: NextPage<PostProps> = ({ post }) => {
         <title>{`${post.title[lang]} - JpedroSnts`}</title>
         <meta name="description" content={post.title[lang]} />
       </Head>
-      <section>
+      <article>
         <S.Title>{post.title[lang]}</S.Title>
         <div dangerouslySetInnerHTML={{ __html: post.content[lang] }} />
         <small>
@@ -67,7 +67,7 @@ const Post: NextPage<PostProps> = ({ post }) => {
             </>
           )}
         </small>
-      </section>
+      </article>
       <br />
       <Link href="/">
         <a>
