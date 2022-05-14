@@ -8,8 +8,8 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
     *{
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Roboto Slab', Georgia, serif;
+      box-sizing: border-box;      
+      font-family: 'Roboto Slab', serif;
     }
     html, #__next{
       height: 100%;
@@ -32,7 +32,7 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
       white-space: -moz-pre-wrap;
       white-space: -pre-wrap;
       white-space: -o-pre-wrap;
-      font-family: 'Fira Code', monospace;
+      font-family: 'Fira Code' , 'Cascadia Mono', monospace;
       font-size: 14px;
       padding: 20px;
       background-color:  ${(props) =>
@@ -77,8 +77,6 @@ export const GlobalStyles = createGlobalStyle<themeProp>`
 `;
 
 export const Container = styled.main`
-  @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700&display=swap");
-  @import url("https://fonts.googleapis.com/css2?family=Fira+Code&display=swap");
   width: min(600px, 100%);
   min-height: 100%;
   padding: 20px;

@@ -4,9 +4,9 @@ type lang = "pt-BR" | "en-US";
 type theme = "dark" | "light";
 
 export const ContextApp = createContext({
-  lang: "" as lang,
+  lang: "en-US" as lang,
   setLang: (lang: lang) => {},
-  theme: "" as theme,
+  theme: "dark" as theme,
   setTheme: (theme: theme) => {},
 });
 
