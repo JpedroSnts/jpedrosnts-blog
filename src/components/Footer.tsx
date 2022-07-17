@@ -5,7 +5,7 @@ import * as S from "../styles/index";
 const icons: Array<{ name: string; link: string }> = [
   {
     name: "linkedin",
-    link: "https://www.linkedin.com/in/jo%C3%A3o-pedro-siqueira-santos-a82303222",
+    link: "https://www.linkedin.com/in/jpedrosnts",
   },
   {
     name: "github",
