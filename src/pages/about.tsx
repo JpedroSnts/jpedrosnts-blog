@@ -9,7 +9,7 @@ import * as S from "../styles";
 
 export const getStaticProps = async () => {
   const { about } = await getAboutData();
-  return { props: { about } };
+  return { props: { about }, revalidate: 60 };
 };
 
 interface AboutProps {
