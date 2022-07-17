@@ -2,13 +2,13 @@ import type { NextPage } from "next";
 import { useContext } from "react";
 import { ContextApp } from "../context";
 import { AboutDataProps } from "../types";
-import { getDisplayData } from "../service/blog";
+import { getAboutData } from "../service/blog";
 import Head from "next/head";
 import Icon from "../components/Icon";
 import * as S from "../styles";
 
-export const getStaticProps = () => {
-  const { about } = getDisplayData();
+export const getStaticProps = async () => {
+  const { about } = await getAboutData();
   return { props: { about } };
 };
 

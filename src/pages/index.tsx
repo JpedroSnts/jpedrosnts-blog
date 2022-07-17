@@ -1,5 +1,5 @@
 import type { NextPage, GetStaticProps } from "next";
-import { getAllPosts, getDisplayData } from "../service/blog";
+import { getAllPosts, getHomeData } from "../service/blog";
 import { HomeDataProps, PostData } from "../types";
 import { useContext } from "react";
 import { ContextApp } from "../context";
@@ -8,7 +8,7 @@ import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async () => {
   const { posts } = await getAllPosts();
-  const { home } = getDisplayData();
+  const { home } = await getHomeData();
   return { props: { posts, home }, revalidate: 30 };
 };
 
